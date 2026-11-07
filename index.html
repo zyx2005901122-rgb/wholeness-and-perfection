@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d57b38">
+  <meta name="description" content="Wholeness and Perfection — an interactive experiment in control, repetition and growth.">
+  <title>Wholeness and Perfection · The Gift or the Cage</title>
+  <link rel="preload" href="assets/design/flower-large.png" as="image">
+  <link rel="preload" href="assets/design/flower-small.png" as="image">
+  <link rel="stylesheet" href="style.css">
+  <script src="core.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="installation" id="installation" data-phase="landing">
+    <section class="landing" id="landing" aria-label="Wholeness and Perfection">
+      <img class="flower flower-large" id="flower-large" src="assets/design/flower-large.png" alt="" fetchpriority="high">
+      <img class="flower flower-small" id="flower-small" src="assets/design/flower-small.png" alt="">
+      <div class="landing-copy">
+        <p class="eyebrow">The Gift or the Cage</p>
+        <h1>Wholeness<br>and<br>Perfection</h1>
+        <p class="introduction">An interactive experiment exploring<br>perfectionism, control and unconscious repetitive behaviour.</p>
+        <p class="statement">You cannot create a kingdom where everything is perfect.<br>A hollow perfection will leave you with nothing.</p>
+      </div>
+      <button class="enter-button" id="enter-button" disabled>Help the Flower Bloom</button>
+    </section>
+    <section class="experience" id="experience" aria-label="Help the flower grow" hidden inert>
+      <nav class="topbar" aria-label="Experience navigation">
+        <button id="guide-button">Quick Start Guide</button>
+        <button id="home-button">Home</button>
+        <button id="connection-button" class="connection" data-status="disconnected" aria-label="Arduino connection settings"><span class="status-dot" aria-hidden="true"></span><span id="connection-label">Connect Arduino</span><span aria-hidden="true">↗</span></button>
+      </nav>
+      <div class="film-space">
+        <!-- Original MOV retained; script.js retries its H.264 MP4 copy if decoding fails.
+             See README for ffmpeg conversion. No autoplay, controls or loop:
+             each completed turn credits two frames; the final frame is held. -->
+        <video id="art-video" preload="auto" muted playsinline aria-label="Flower growth, controlled by the wheel" src="assets/video/0001-0322.mov"></video>
+        <p id="film-message" class="film-message" hidden></p>
+      </div>
+      <footer class="rotation-data">
+        <div class="data-heading"><span>ROTATION DATA</span><span id="input-source">LIVE SENSOR</span></div>
+        <div class="measurements">
+          <div><span class="measure-label">Number of turns</span><output id="turns-value">0</output></div>
+          <div><span class="measure-label">Degree of Blossoming</span><output id="progress-value">0%</output></div>
+        </div>
+        <div class="progress-track" id="growth-progress" role="progressbar" aria-label="Degree of Blossoming" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill"></div></div>
+        <p class="closing-quote">If you fear the appearance of flawed works<br>upon the earth, you will grow listless and accomplish nothing.</p>
+        <div class="demo-controls" id="demo-controls" hidden><span>DEMO · ↑ = 1 TURN</span><button id="demo-one">+1 turn</button><button id="demo-ten">+10 turns</button></div>
+      </footer>
+    </section>
+    <div class="instruction" id="instruction" role="status" hidden>
+      <div><p class="instruction-kicker">A SMALL GESTURE. A SLOW UNFOLDING.</p><p class="instruction-text">Rotate the wheel<br>to help the flower grow.</p><span class="instruction-rule"></span></div>
+    </div>
+    <div class="global-tools"><button id="settings-button" aria-label="Open connection and demo settings">Connection / Demo</button><button id="reset-button" class="reset-button" aria-label="Reset bloom and stay on this page"><span aria-hidden="true">↺</span> Reset</button></div>
+    <div class="notice" id="notice" role="alert" hidden><span id="notice-text"></span><button id="notice-close" aria-label="Dismiss notice">×</button></div>
+  </main>
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-heading"><h2 id="settings-title">Connection &amp; demo</h2><button id="settings-close" aria-label="Close settings">×</button></div>
+    <p class="dialog-description">One full turn. Two frames.<br>161 turns to reveal the complete bloom.</p>
+    <div class="connection-readout"><span class="status-dot" id="dialog-status-dot" data-status="disconnected"></span><span id="status-text">Arduino disconnected</span></div>
+    <label class="select-label" for="baud-rate">Serial baud rate<select id="baud-rate"><option value="9600">9600</option><option value="115200">115200</option></select></label>
+    <button id="connect-button" class="dialog-action">Connect Arduino ↗</button>
+    <p class="settings-note">Use Chrome or Edge. Close the Arduino Serial Monitor before connecting. The included D2 sketch uses 9600 baud.</p>
+    <div class="demo-setting"><div><strong>Demo mode</strong><p>Try the experience without the wheel.<br>Changing input starts a new round.</p></div><button id="demo-button" aria-pressed="false">Off</button></div>
+    <p class="settings-note" id="sensor-readout">Waiting for serial data.</p>
+    <button id="fullscreen-button" class="text-button">Enter full screen ↗</button>
+  </dialog>
+  <noscript>This installation requires JavaScript. Please enable it and reload.</noscript>
+</body>
+</html>
